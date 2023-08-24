@@ -1,4 +1,4 @@
-# mixencodings
+# mixedencoding
 # Genetic Algorithm for Mixed-Variable Optimization
 
 This project demonstrates the implementation of a genetic algorithm for solving a mixed-variable optimization problem. The algorithm aims to minimize the total assignment cost by efficiently allocating tasks to workers while considering various types of decision variables.
