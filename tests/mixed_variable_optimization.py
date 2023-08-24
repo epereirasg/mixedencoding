@@ -4,6 +4,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 
+
+
 """
 Problema de Asignación de Tareas con Codificación Híbrida
 
@@ -27,21 +29,23 @@ Donde x_i es el valor de la variable de decisión i en el vector x.
 El algoritmo genético se utiliza para evolucionar las asignaciones a lo largo de generaciones, buscando una solución que minimice el costo total de asignación. Se utiliza una función de aptitud basada en el costo para evaluar la calidad de cada asignación en la población. A través de selección, cruzamiento y mutación, el algoritmo genético busca encontrar la mejor asignación que cumpla con las restricciones del problema y minimice el costo total.
 """
 
-
-
-# Definir la función objetivo de prueba (solo para ilustración)
+# Función objetivo de prueba
 def objective_function(solution):
     binary_section = solution[:5]
     real_section = solution[5:10]
     permutation_section = solution[10:15]
     integer_section = solution[15:]
 
-    # Esta función es solo un ejemplo, puedes definir la tuya propia
-    cost = np.sum(binary_section) * 100  # Costo de tareas obligatorias
-    cost += np.sum(real_section) * 10  # Costo estimado de tiempo
-    cost += np.sum(integer_section) * 5  # Costo de tareas opcionales asignadas
+    cost = np.sum(binary_section) * 100
+    cost += np.sum(real_section) * 10
+    cost += np.sum(integer_section) * 5
     return cost
 
+# Función para generar permutaciones únicas
+def generate_unique_permutation(length):
+    perm = np.arange(length)
+    np.random.shuffle(perm)
+    return perm
 
 # Parámetros del algoritmo genético
 population_size = 50
@@ -49,10 +53,13 @@ solution_length = 20
 mutation_rate = 0.1
 generations = 100
 
-# Crear la población inicial
-population = np.random.randint(0, 2, size=(population_size, solution_length)).astype(np.float32)
+# Crear población inicial con variables de decisión mixtas
+population = np.random.random(size=(population_size, solution_length)).astype(np.float32)
+population[:, :5] = np.round(population[:, :5])  # Inicializar variables binarias
+population[:, 15:20] = np.random.randint(0, 10, size=(population_size, 5))  # Inicializar variables enteras
+population[:, 10:15] = np.array([generate_unique_permutation(5) for _ in range(population_size)])  # Generar permutaciones únicas
 
-# Crear el modelo para optimizar las soluciones
+# Crear modelo para optimizar las soluciones
 model = Sequential([
     Dense(128, activation='relu', input_shape=(solution_length,)),
     Dense(1)
@@ -82,7 +89,16 @@ for generation in range(generations):
 
         for j in range(solution_length):
             if np.random.rand() < mutation_rate:
-                child[j] = 1 - child[j]  # Mutación bit a bit
+                if j < 5:  # Variables binarias
+                    child[j] = 1 - child[j]
+                elif 5 <= j < 10:  # Variables reales
+                    child[j] = np.random.uniform(0, 1)
+                elif 15 <= j < 20:  # Variables enteras
+                    child[j] = np.random.randint(0, 10)
+
+        # Corregir la asignación de permutaciones
+        if 10 <= j < 15:  # Permutaciones
+            child[j] = generate_unique_permutation(5)
 
         children.append(child)
 

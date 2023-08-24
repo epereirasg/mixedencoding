@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/encodins_mixed.iml" filepath="$PROJECT_DIR$/.idea/encodins_mixed.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mixedencoding.iml" filepath="$PROJECT_DIR$/.idea/mixedencoding.iml" />
     </modules>
   </component>
 </project>
