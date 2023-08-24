@@ -12,7 +12,6 @@ The problem involves assigning tasks to workers with the objective of minimizing
 - Hybrid encoding of mixed-variable decision-making scenarios.
 - Implementation of a genetic algorithm to evolve solutions over generations.
 - Utilization of a neural network model to predict the fitness of solutions.
-- Correction of permutation assignments to ensure uniqueness.
 
 ## Getting Started
 
