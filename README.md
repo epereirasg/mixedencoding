@@ -27,13 +27,9 @@ Feel free to experiment with parameters, fitness functions, and other aspects to
 
 The repository contains the following files:
 
-- `genetic_algorithm.py`: The main script that implements the genetic algorithm and hybrid encoding.
+- `mixed_variable_optimization.py`: The main script that implements the genetic algorithm and hybrid encoding.
 - `README.md`: This README file providing an overview of the project.
 
 ## Acknowledgments
 
 This project is inspired by the field of optimization and genetic algorithms. It showcases how hybrid encoding can effectively address problems with mixed-variable decision-making scenarios.
-
-Please note that this README provides a high-level overview. For detailed code and execution, refer to the actual implementation in the script.
-
-For questions or contributions, feel free to open an issue or pull request!
